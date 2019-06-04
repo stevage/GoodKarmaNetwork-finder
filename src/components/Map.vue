@@ -13,13 +13,16 @@ import axios from 'axios';
 function toPins(rows) {
     return {
         type: 'FeatureCollection',
-        features: rows.map(row => ({
+        features: rows.map((row,id) => ({
             type: 'Feature',
             geometry: {
                 type: 'Point',
                 coordinates: [+row.Lng, +row.Lat],
             },
-            properties: row
+            properties: {
+                id,
+                ...row
+            }
         }))
     }
 }
@@ -31,7 +34,7 @@ async function initMap(map) {
         // 'https://www.dropbox.com/s/dl/2qki2wp865vuj6f/cl'
         // 'https://uc8642c1e411e81db8d6d60021a2.dl.dropboxusercontent.com/cd/0/get/Ah4oWwTNLRQNJZT7nfmcocRGK00szXkDam3DOK0hCpwAncU5liAUhOg9BObbey6zSBPscuE5-gwuc-hEWVjAh9ZnTyy0-IQlePTfFqR_KSe-oQ/file?dl=1#'
 
-        'http://emscycletours.site44.com/Good_Karma_Network_finder/gkn.csv'
+        'https://emscycletours.site44.com/Good_Karma_Network_finder/gkn.csv'
         );
     console.log(data);
     const sites = toPins(d3.csvParse(data));
@@ -39,9 +42,7 @@ async function initMap(map) {
 
     map.U.addGeoJSON('sites', sites);
     console.log(sites);
-    // map.U.addCircle('sites-pins', 'sites', {
-    //     circleColor: 'purple'
-    // });
+    
     map.U.addSymbol('sites-pins', 'sites', {
         iconImage: 'marker',
         iconSize: 0.5,
@@ -51,6 +52,9 @@ async function initMap(map) {
             
 }
 export default {
+    data: () => ({
+        selectedId: undefined
+    }),
     async mounted() {
         mapboxgl.accessToken = 'pk.eyJ1Ijoic3RldmFnZSIsImEiOiJGcW03aExzIn0.QUkUmTGIO3gGt83HiRIjQw';
         const map = new mapboxgl.Map({
@@ -67,19 +71,28 @@ export default {
         });
 
         U.init(map);
-        map.U.loadImage('marker', '/map-marker.png');
+        map.U.loadImage('marker', 'map-marker.png');
+        map.U.loadImage('marker-highlight', 'map-marker-purple.png');
         window.map = map;
         window.Map = this;
         map.U.hoverPointer('sites-pins');
-        map.on('click', 'sites-pins', e => {
-            console.log(e);
-            window.FeatureInfo.feature = e.features[0];
+        map.on('click', 'sites-pins', ({features: [site]}) => {
+            // console.log(e);
+            window.FeatureInfo.feature = site;
+            this.highlight(site);
         });
         map.U.onLoad(() => initMap(map));
     }, methods: {
         highlight(site) {
             map.flyTo({ center: site.geometry.coordinates, zoom: 13 })
             window.FeatureInfo.feature = site;
+
+            map.U.setIconImage('sites-pins', 
+                ['case',
+                    ['==', ['get', 'id'], site.properties.id], 'marker-highlight',
+                    'marker'
+                ]
+            );
         }
     }
 }
