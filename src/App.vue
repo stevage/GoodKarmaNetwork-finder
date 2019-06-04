@@ -1,26 +1,29 @@
 <template lang="pug">
     #app.flex.flex-column.vh-100.avenir
-        #top.bb.b--gray.bg-washed-yellow.h3
-            h1 Title
+        //- #top.bb.b--gray.bg-washed-yellow.h3
+        //-     h1 Title
         #middle.flex.flex-auto
-            #sidebar.br.b--light-gray.overflow-auto.w3.w5-ns
-                .b.i Hello                
+            #sidebar.br.b--light-gray.overflow-auto.w3.w5-ns.pa2
+                FeatureInfo
+                Sites
             #map-container.relative.flex-auto
                 Map
                 #overlay.absolute
-                    FeatureInfo
-        #bottom.bt.b--light-gray.flex-none.h2
+        //- #bottom.bt.b--light-gray.flex-none.h2
 </template>
 
 <script>
-import Map from './components/Map.vue'
-import FeatureInfo from './components/FeatureInfo.vue'
+import Map from './components/Map.vue';
+import FeatureInfo from './components/FeatureInfo.vue';
+import Sites from './components/Sites.vue';
+console.log(Sites);
 
 export default {
     name: 'app',
     components: {
       Map,
-      FeatureInfo
+      FeatureInfo,
+      Sites
     }
 }
 
