@@ -4,6 +4,8 @@
         //-     h1 Title
         #middle.flex.flex-auto
             #sidebar.br.b--light-gray.overflow-auto.w3.w5-ns.pa2
+                p Enter your address to find your nearest group
+                #geocoder
                 FeatureInfo
                 Sites
             #map-container.relative.flex-auto

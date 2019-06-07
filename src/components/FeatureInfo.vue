@@ -3,7 +3,7 @@
     h3 {{ p.Name }} 
     p.text--gray {{ p['More Information'] }}
     p.ml3(v-if="p.URL")
-        a(:href="p.URL").no-underline &rarr; Learn more
+        a(:href="p.URL" target="_blank").no-underline &rarr; Learn more
     //- table(v-if="feature").bg-white.b--gray.ba.helvetica.ma1
     //-     tr
     //-         th Link

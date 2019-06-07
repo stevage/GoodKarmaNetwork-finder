@@ -46,7 +46,13 @@ async function initMap(map) {
     map.U.addSymbol('sites-pins', 'sites', {
         iconImage: 'marker',
         iconSize: 0.5,
-        iconOffset:[0,-30]
+        iconOffset:[0,-30],
+        textField: '{Name}',
+        textOffset:[0,1],
+        textOptional: true,
+        textSize: 14,
+        textColor: 'hsl(331, 50%, 50%)',
+        textOpacity: { stops: [[12.5, 0], [13, 1]] }
     });
     window.Sites.sites = [...sites.features];
             
@@ -64,7 +70,9 @@ export default {
             style: 'mapbox://styles/mapbox/light-v9',
         });
         const geocoder = new MapboxGeocoder({ mapboxgl, accessToken: mapboxgl.accessToken});
-        map.addControl(geocoder);
+        document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+        // map.addControl(geocoder);
         geocoder.on('result', ({result}) => {
             console.log(result); 
             window.Sites.home = result.geometry.coordinates
@@ -72,7 +80,7 @@ export default {
 
         U.init(map);
         map.U.loadImage('marker', 'map-marker.png');
-        map.U.loadImage('marker-highlight', 'map-marker-purple.png');
+        map.U.loadImage('marker-highlight', 'marker-magenta.png');
         window.map = map;
         window.Map = this;
         map.U.hoverPointer('sites-pins');
@@ -89,10 +97,20 @@ export default {
 
             map.U.setIconImage('sites-pins', 
                 ['case',
-                    ['==', ['get', 'id'], site.properties.id], 'marker-highlight',
+                    ['==', ['get', 'id'], site.properties.id], 
+                    'marker-highlight',
                     'marker'
                 ]
             );
+            map.U.setIconSize('sites-pins', 
+                ['case',
+                    ['==', ['get', 'id'], site.properties.id], 
+                    0.75,
+                    0.5
+                ]
+            );
+        }, zoomToBounds(bbox) {
+            map.fitBounds(bbox);
         }
     }
 }
