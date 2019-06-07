@@ -1,9 +1,9 @@
 <template lang="pug">
-    #app.flex.flex-column.vh-100.avenir
+    #app.flex.flex-column.vh-100.sans-serif
         //- #top.bb.b--gray.bg-washed-yellow.h3
         //-     h1 Title
         #middle.flex.flex-auto
-            #sidebar.br.b--light-gray.overflow-auto.w3.w5-ns.pa2
+            #sidebar.br.b--light-gray.overflow-auto.w3.w5-ns.pa2.w5
                 p Enter your address to find your nearest group
                 #geocoder
                 FeatureInfo
@@ -38,6 +38,10 @@ html, body {
   width: 100%;
   margin:0;
   padding:0;
+}
+
+h3 {
+  color: hsl(210, 5%, 24%);
 }
 
 </style>

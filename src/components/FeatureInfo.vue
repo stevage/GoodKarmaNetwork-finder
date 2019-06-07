@@ -2,8 +2,8 @@
 #FeatureInfo(v-if="feature")
     h3 {{ p.Name }} 
     p.text--gray {{ p['More Information'] }}
-    p.ml3(v-if="p.URL")
-        a(:href="p.URL" target="_blank").no-underline &rarr; Learn more
+    p.tc.ml3(v-if="p.URL")
+        a.br-pill.pa2.ph3(:href="p.URL" target="_blank").no-underline Learn more
     //- table(v-if="feature").bg-white.b--gray.ba.helvetica.ma1
     //-     tr
     //-         th Link
@@ -31,5 +31,12 @@ export default {
 </script>
 
 <style scoped>
+
+a {
+    /* background: hsl(210, 5%, 24%);
+    color: hsl(325, 97%, 46%); */
+    background: hsl(325, 97%, 46%);
+    color: white;
+}
 
 </style>

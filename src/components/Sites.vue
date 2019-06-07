@@ -1,13 +1,14 @@
 <template lang="pug">
-#Sites(v-if="sites")
+#Sites(v-if="sites").mt5
     .nearest(v-if="home")
         h3 Nearest groups
 
-        .site.ma3.pointer.glow.o-70(v-for="site in nearestSites" @click="click(site)" :class="{ selected: selected(site) }")
-            .name.dib.w-70.pa3 {{ site.properties['Name'].replace(' Good Karma Network', '') }}
+        .site.pointer.glow.o-70(v-for="site in nearestSites" @click="click(site)" :class="{ selected: selected(site) }")
+            .name.dib.w-70.pa1 {{ site.properties['Name'].replace(' Good Karma Network', '') }}
             .distance.dib.w-30.ph3.pv1 {{ Math.round(site.distance) }} km
     .all(v-else)
-        .site.ma3.pointer.glow.o-70(v-for="site in alphabetisedSites" @click="click(site)"  :class="{ selected: selected(site) }")
+        h3 All groups
+        .site.pointer.glow.o-70(v-for="site in alphabetisedSites" @click="click(site)"  :class="{ selected: selected(site) }")
             .name.dib.w-70.pa1 {{ site.properties['Name'].replace(' Good Karma Network', '') }}
 </template>
 
