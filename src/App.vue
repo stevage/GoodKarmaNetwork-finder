@@ -3,12 +3,12 @@
         //- #top.bb.b--gray.bg-washed-yellow.h3
         //-     h1 Title
         #middle.flex.flex-auto
-            #sidebar.br.bg-white.b--light-gray.overflow-auto.w3.w5-ns.pa2.w5.bw2(v-if="sidebarOpen")
+            #sidebar.br.bg-white.b--light-gray.overflow-auto.w3.w5-ns.pa2.w5.bw2(v-show="sidebarOpen")
                 FeatureInfo.mb5
-                p Enter your address to find your nearest group
+                p Enter your suburb to find your nearest group
                 #geocoder
                 Sites
-            #sidebar-rim.relative.br.b--gray.bw2(v-if="!sidebarOpen"  style="width:7px")
+            #sidebar-rim.relative.br.b--gray.bw2(v-show="!sidebarOpen"  style="width:7px")
             #map-container.relative.flex-auto
                 Map
                 #sidebarToggle.absolute.bg-white.f3.br.bt.bb.br--right.br-100.b--magenta.bw1.magenta.pa1.pointer.grow.fw8(@click="toggleSidebar")

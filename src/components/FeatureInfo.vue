@@ -2,7 +2,7 @@
 #FeatureInfo(v-if="feature")
     h3 {{ p.Name }} 
     p.text--gray {{ p['More Information'] }}
-    .info.p.tc(v-if="p.URL").grow
+    .info.p.tc.mt4(v-if="p.URL").grow
         a.br-pill.pa2.ph3(:href="p.URL" target="_blank").no-underline Learn more
     .view-on-map.dn-ns.tc.mt4.pointer.grow(@click="viewOnMap")
         span.br-pill.pa2 View on map
