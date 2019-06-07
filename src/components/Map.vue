@@ -76,6 +76,8 @@ export default {
         geocoder.on('result', ({result}) => {
             console.log(result); 
             window.Sites.home = result.geometry.coordinates
+        }).on('clear', () => {
+            window.Sites.home = null;
         });
 
         U.init(map);

@@ -1,10 +1,14 @@
 <template lang="pug">
-#Sites(v-if="sites && home")
-    h3 Nearest groups
+#Sites(v-if="sites")
+    .nearest(v-if="home")
+        h3 Nearest groups
 
-    .site.ma3.pointer.glow.o-70(v-for="site in nearestSites" @click="click(site)")
-        .name.dib.w-70 {{ site.properties['Name'] }}
-        .distance.dib.w-30.pl3 {{ Math.round(site.distance) }} km
+        .site.ma3.pointer.glow.o-70(v-for="site in nearestSites" @click="click(site)" :class="{ selected: selected(site) }")
+            .name.dib.w-70.pa3 {{ site.properties['Name'].replace(' Good Karma Network', '') }}
+            .distance.dib.w-30.ph3.pv1 {{ Math.round(site.distance) }} km
+    .all(v-else)
+        .site.ma3.pointer.glow.o-70(v-for="site in alphabetisedSites" @click="click(site)"  :class="{ selected: selected(site) }")
+            .name.dib.w-70.pa1 {{ site.properties['Name'].replace(' Good Karma Network', '') }}
 </template>
 
 <script>
@@ -32,8 +36,13 @@ export default {
     }, methods: {
         click(site) {
             window.Map.highlight(site);
+        }, selected(site) {
+            return window.FeatureInfo.feature && window.FeatureInfo.feature.properties.id === site.properties.id
         }
     }, computed: {
+        alphabetisedSites() {
+            return this.sites.sort((a,b) => a.properties.Name > b.properties.Name ? 1 : -1);
+        },
         nearestSites() {
             return this.sites.slice(0,5);
         }, bbox() {
@@ -46,6 +55,16 @@ export default {
 
 <style scoped>
 .site:hover {
-    font-weight: bold;
+    /* font-weight: bold; */
+    color: black;
+    background: hsl(333, 80%,95%);
 }
+
+.selected {
+    background: hsl(333, 80%,90%);
+    border-bottom: 2px solid  hsl(333, 80%,50%);
+    font-weight: bold;
+
+}
+
 </style>
