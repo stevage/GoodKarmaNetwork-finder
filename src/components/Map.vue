@@ -81,7 +81,7 @@ export default {
         });
 
         U.init(map);
-        map.U.loadImage('marker', 'map-marker.png');
+        map.U.loadImage('marker', 'marker-outline2.png');
         map.U.loadImage('marker-highlight', 'marker-magenta.png');
         window.map = map;
         window.Map = this;
@@ -90,6 +90,8 @@ export default {
             // console.log(e);
             window.FeatureInfo.feature = site;
             this.highlight(site);
+            window.App.sidebarOpen = true;
+            document.getElementById('FeatureInfo').scrollIntoView()
         });
         map.U.onLoad(() => initMap(map));
     }, methods: {

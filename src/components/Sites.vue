@@ -1,8 +1,7 @@
 <template lang="pug">
-#Sites(v-if="sites").mt5
+#Sites(v-if="sites").mt2
     .nearest(v-if="home")
         h3 Nearest groups
-
         .site.pointer.glow.o-70(v-for="site in nearestSites" @click="click(site)" :class="{ selected: selected(site) }")
             .name.dib.w-70.pa1 {{ site.properties['Name'].replace(' Good Karma Network', '') }}
             .distance.dib.w-30.ph3.pv1 {{ Math.round(site.distance) }} km
