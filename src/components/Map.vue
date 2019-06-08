@@ -42,17 +42,20 @@ async function initMap(map) {
 
     map.U.addGeoJSON('sites', sites);
     console.log(sites);
+    map.U.addCircle('sites-circles', 'sites', {
+        circleColor: 'black',
+        circleRadius: { stops: [[10, 3], [12, 5]] }
+    });
     
     map.U.addSymbol('sites-pins', 'sites', {
         iconImage: 'marker',
-        iconSize: 0.5,
+        iconSize: { stops: [[9, 0.25], [11, 0.5]] },
         iconOffset:[0,-30],
-        textField: '{Name}',
+        textField: { stops: [[12.5, ''], [13, '{Name}']] },
         textOffset:[0,1],
         textOptional: true,
         textSize: 14,
         textColor: 'hsl(331, 50%, 50%)',
-        textOpacity: { stops: [[12.5, 0], [13, 1]] }
     });
     window.Sites.sites = [...sites.features];
             
