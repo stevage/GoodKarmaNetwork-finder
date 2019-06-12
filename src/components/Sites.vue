@@ -3,12 +3,12 @@
     .nearest(v-if="home")
         h3 Nearest groups
         .site.pointer.glow.o-70(v-for="site in nearestSites" @click="click(site)" :class="{ selected: selected(site) }")
-            .name.dib.w-70.pa1 {{ site.properties['Name'].replace(' Good Karma Network', '') }}
-            .distance.dib.w-30.ph3.pv1 {{ Math.round(site.distance) }} km
+            .name.dib.w-70.pa1 {{ site.properties['Name'].replace(/ Good Karma Network/i, '') }}
+            .distance.dib.w-30.ph1.pv1 {{ Math.round(site.distance) }} km
     .all(v-else)
         h3 All groups
         .site.pointer.glow.o-70(v-for="site in alphabetisedSites" @click="click(site)"  :class="{ selected: selected(site) }")
-            .name.dib.w-70.pa1 {{ site.properties['Name'].replace(' Good Karma Network', '') }}
+            .name.dib.w-70.pa1 {{ site.properties['Name'].replace(/ Good Karma Network/i, '') }}
 </template>
 
 <script>

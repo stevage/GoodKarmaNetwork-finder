@@ -1,5 +1,5 @@
 <template lang="pug">
-#FeatureInfo(v-if="feature")
+#FeatureInfo.ph2.pb3(v-if="feature")
     h3 {{ p.Name }} 
     p.text--gray {{ p['More Information'] }}
     .info.p.tc.mt4(v-if="p.URL").grow
@@ -49,4 +49,11 @@ export default {
     border: 1px solid hsl(333, 97%, 46%);
     color: hsl(325, 97%, 46%);
 }
+
+#FeatureInfo {
+    box-sizing:border-box;
+    border: 2px solid hsl(333, 97%, 46%);
+    border-radius: 4px;
+}
+
 </style>

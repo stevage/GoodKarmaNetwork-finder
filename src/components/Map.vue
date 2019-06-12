@@ -72,7 +72,11 @@ export default {
             zoom: 12,
             style: 'mapbox://styles/mapbox/light-v9',
         });
-        const geocoder = new MapboxGeocoder({ mapboxgl, accessToken: mapboxgl.accessToken});
+        const geocoder = new MapboxGeocoder({ 
+            mapboxgl, accessToken: mapboxgl.accessToken,
+            countries: 'au',
+            types: 'region,postcode,district,place,locality,neighborhood,address'
+        });
         document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
         // map.addControl(geocoder);
@@ -97,6 +101,11 @@ export default {
             document.getElementById('FeatureInfo').scrollIntoView()
         });
         map.U.onLoad(() => initMap(map));
+        map.on('mousedown', () => {
+            if (document.getElementById('map').clientWidth < 150) {
+                window.App.sidebarOpen = false;
+            }
+        });
     }, methods: {
         highlight(site) {
             map.flyTo({ center: site.geometry.coordinates, zoom: 13 })
@@ -126,5 +135,8 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 </script>
 
-<style scoped>
+<style>
+.mapboxgl-ctrl-geocoder {
+    min-width: 200px !important;
+}
 </style>

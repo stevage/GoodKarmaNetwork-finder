@@ -3,12 +3,13 @@
         //- #top.bb.b--gray.bg-washed-yellow.h3
         //-     h1 Title
         #middle.flex.flex-auto
-            #sidebar.br.bg-white.b--light-gray.overflow-auto.w3.w5-ns.pa2.w5.bw2(v-show="sidebarOpen")
-                FeatureInfo.mb5
-                p Enter your suburb to find your nearest group
-                #geocoder
-                Sites
-            #sidebar-rim.relative.br.b--gray.bw2(v-show="!sidebarOpen"  style="width:7px")
+            #sidebar(:class="{ collapsed: !sidebarOpen}")
+                .container.br.bg-white.b--light-gray.overflow-auto.pa2.bw2
+                    FeatureInfo.mb5
+                    p Enter your suburb to find your nearest group
+                    #geocoder
+                    Sites
+            #sidebar-rim.relative.br.b--gray.bw2(v-show="!sidebarOpen"  style="width:20px" @click="sidebarOpen = true")
             #map-container.relative.flex-auto
                 Map
                 #sidebarToggle.absolute.bg-white.f3.br.bt.bb.br--right.br-100.b--magenta.bw1.magenta.pa1.pointer.grow.fw8(@click="toggleSidebar")
@@ -74,10 +75,46 @@ h3 {
   background:hsl(333,100%,95%)
 }
 
-.collapsed {
+#sidebar.collapsed {
   position: absolute;
-  /* transform:translate(-230px, 0); */
-  /* z-index:1; */
-
+  animation-duration: 0.5s;
+  animation-name: slideout;
+  pointer-events:none;
+  animation-fill-mode: forwards;
 }
+
+#sidebar {
+  animation-duration: 0.5s;
+  animation-name: slidein;
+  z-index:1;
+  width:230px;
+}
+
+@keyframes slidein {
+  from {
+     transform: translate(-230px,0);
+  }
+  to {
+     transform: translate(0px,0);
+     /* opacity:1; */
+  }
+}
+@keyframes slideout {
+  from {
+      transform: translate(0px,0);
+  }
+  99% {
+      opacity: 1; 
+  }
+  to {
+      transform: translate(-230px,0);
+      opacity: 0; /* The sidebar will still be present, so we need to hide it. Relies on animation-fill-mode: forwards*/
+  }
+}
+
+/* Exists to ensure whole sidebar animates together */
+.container {
+  height:100vh;
+}
+
 </style>
