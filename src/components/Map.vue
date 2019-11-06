@@ -6,14 +6,13 @@
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import U from 'mapbox-gl-utils';
-// const d3 = require('d3-fetch');
-const d3 = require('d3-dsv');
+const d3 = require('d3-fetch');
 import axios from 'axios';
 
 function toPins(rows) {
     return {
         type: 'FeatureCollection',
-        features: rows.map((row,id) => ({
+        features: rows.map((row, id) => ({
             type: 'Feature',
             geometry: {
                 type: 'Point',
@@ -27,19 +26,7 @@ function toPins(rows) {
     }
 }
 async function initMap(map) {
-    console.log(d3);
-    const { data } = await axios.get(
-        // 'https://www.dropbox.com/s/2qki2wp865vuj6f/clinics.csv?dl=1'
-        //'https://dropbox.com/s/dl/2qki2wp865vuj6f/clinics.csv'
-        // 'https://www.dropbox.com/s/dl/2qki2wp865vuj6f/cl'
-        // 'https://uc8642c1e411e81db8d6d60021a2.dl.dropboxusercontent.com/cd/0/get/Ah4oWwTNLRQNJZT7nfmcocRGK00szXkDam3DOK0hCpwAncU5liAUhOg9BObbey6zSBPscuE5-gwuc-hEWVjAh9ZnTyy0-IQlePTfFqR_KSe-oQ/file?dl=1#'
-
-        'https://emscycletours.site44.com/Good_Karma_Network_finder/gkn.csv'
-        );
-    console.log(data);
-    const sites = toPins(d3.csvParse(data));
-
-
+    const sites = toPins(await d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSEXu2wQN2zDyNMc8YTu7YhjERf24r1A9a2CS2uuaEwgAWfkMT99pNaDrh0QuYcgi_aGdtJU0YNRaBF/pub?output=csv'));
     map.U.addGeoJSON('sites', sites);
     console.log(sites);
     map.U.addCircle('sites-circles', 'sites', {
@@ -57,6 +44,7 @@ async function initMap(map) {
         textSize: 14,
         textColor: 'hsl(331, 50%, 50%)',
     });
+    map.U.hoverPopup(['sites-circles', 'sites-pins'], f => f.properties.Name/*, mapboxgl.Popup*/);
     window.Sites.sites = [...sites.features];
             
 }
@@ -87,7 +75,7 @@ export default {
             window.Sites.home = null;
         });
 
-        U.init(map);
+        U.init(map, mapboxgl);
         map.U.loadImage('marker', 'marker-outline2.png');
         map.U.loadImage('marker-highlight', 'marker-magenta.png');
         window.map = map;

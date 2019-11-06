@@ -41,7 +41,7 @@ export default {
         }
     }, computed: {
         alphabetisedSites() {
-            return this.sites.sort((a,b) => a.properties.Name > b.properties.Name ? 1 : -1);
+            return this.sites.slice().sort((a,b) => a.properties.Name > b.properties.Name ? 1 : -1);
         },
         nearestSites() {
             return this.sites.slice(0,5);
