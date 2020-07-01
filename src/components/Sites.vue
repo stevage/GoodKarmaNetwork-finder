@@ -15,56 +15,75 @@
 import cheapRuler from 'cheap-ruler';
 import geojsonBounds from 'geojson-bounds';
 export default {
-    name: "Sites",
+    name: 'Sites',
     data: () => ({
         sites: undefined,
-        home: undefined
+        home: undefined,
     }),
     created() {
         window.Sites = this;
-    }, watch: {
+    },
+    watch: {
         home() {
             const ruler = cheapRuler(this.home[1]);
             for (const site of this.sites) {
-                console.log(ruler.distance(this.home, site.geometry.coordinates));
-                site.distance = ruler.distance(this.home, site.geometry.coordinates)
+                // console.log(ruler.distance(this.home, site.geometry.coordinates));
+                site.distance = ruler.distance(
+                    this.home,
+                    site.geometry.coordinates
+                );
             }
             this.sites.sort((a, b) => a.distance - b.distance);
             window.Map.zoomToBounds(this.bbox);
-
-        }
-    }, methods: {
+        },
+    },
+    methods: {
         click(site) {
             window.Map.highlight(site);
-        }, selected(site) {
-            return window.FeatureInfo.feature && window.FeatureInfo.feature.properties.id === site.properties.id
-        }
-    }, computed: {
+        },
+        selected(site) {
+            return (
+                window.FeatureInfo.feature &&
+                window.FeatureInfo.feature.properties.id === site.properties.id
+            );
+        },
+    },
+    computed: {
         alphabetisedSites() {
-            return this.sites.slice().sort((a,b) => a.properties.Name > b.properties.Name ? 1 : -1);
+            return this.sites
+                .slice()
+                .sort(
+                    (a, b) => (a.properties.Name > b.properties.Name ? 1 : -1)
+                );
         },
         nearestSites() {
-            return this.sites.slice(0,5);
-        }, bbox() {
-            const homePoint = { type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: this.home }};
-            return geojsonBounds.extent({ type: 'FeatureCollection', features: [homePoint, ...this.nearestSites] });
-        }
-    }
-}
+            return this.sites.slice(0, 5);
+        },
+        bbox() {
+            const homePoint = {
+                type: 'Feature',
+                properties: {},
+                geometry: { type: 'Point', coordinates: this.home },
+            };
+            return geojsonBounds.extent({
+                type: 'FeatureCollection',
+                features: [homePoint, ...this.nearestSites],
+            });
+        },
+    },
+};
 </script>
 
 <style scoped>
 .site:hover {
     /* font-weight: bold; */
     color: black;
-    background: hsl(333, 80%,95%);
+    background: hsl(333, 80%, 95%);
 }
 
 .selected {
-    background: hsl(333, 80%,90%);
-    border-bottom: 2px solid  hsl(333, 80%,50%);
+    background: hsl(333, 80%, 90%);
+    border-bottom: 2px solid hsl(333, 80%, 50%);
     font-weight: bold;
-
 }
-
 </style>

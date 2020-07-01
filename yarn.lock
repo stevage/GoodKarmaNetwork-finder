@@ -5361,10 +5361,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapbox-gl-utils@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/mapbox-gl-utils/-/mapbox-gl-utils-0.24.0.tgz#f776c4c3a70b500213ddc6f718285b2ae70c5fb7"
-  integrity sha512-LpTx+TYMR/+DjvAwgMcgMQGg9TSaRaWWMxkKbhmXrLtk+WxOrvJl2/cEa8k7BS3nvwzm8boJzqAzXKlPkIqpdA==
+mapbox-gl-utils@0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/mapbox-gl-utils/-/mapbox-gl-utils-0.26.1.tgz#6ebb4e289de6cef0bb07f8774e53d024414fb0ac"
+  integrity sha512-PXHNIjjQuGI4zehZdUuvOmPU9f6VbjhbBL8jRHm3YxFN46r97Mz7rloKKjqT6nJyvEU4Q6GVwvg+orlJLbudjA==
   dependencies:
     "@mapbox/expression-jamsession" "^0.4.2"
     kebab-case "^1.0.0"
