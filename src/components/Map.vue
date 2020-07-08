@@ -36,6 +36,7 @@ export default {
             zoom: 12,
             style: 'mapbox://styles/mapbox/light-v9',
         });
+        map.addControl(new mapboxgl.NavigationControl(), 'top-left');
         const geocoder = new MapboxGeocoder({
             mapboxgl,
             accessToken: mapboxgl.accessToken,
