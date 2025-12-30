@@ -1,6 +1,9 @@
 // CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     // baseUrl: '',
+    // vue3 version of baseurl
+    publicPath: '',
+
     devServer: {
         historyApiFallback: false,
     },

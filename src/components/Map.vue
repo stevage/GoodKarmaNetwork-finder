@@ -68,7 +68,7 @@ export default {
         //         'icon-image': 'pin',
         //     },
         // });
-        const urlBase = window.location.origin + process.env.BASE_URL;
+        const urlBase = window.location + '';
         map.U.loadImage('marker', `${urlBase}marker-outline2.png`);
         map.U.loadImage('marker-highlight', `${urlBase}marker-magenta.png`);
         window.map = map;
