@@ -1,59 +1,55 @@
 {
-  "name": "map-template",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build; ./post-build.sh",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^4.4.0",
-    "axios": "^0.19.0",
-    "cheap-ruler": "^2.5.1",
-    "d3-dsv": "^1.1.1",
-    "d3-fetch": "^1.1.2",
-    "geojson-bounds": "^1.0.2",
-    "mapbox-gl": "1.0.0",
-    "mapbox-gl-utils": "0.26.1",
-    "vue": "^2.5.21"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.3.0",
-    "@vue/cli-plugin-eslint": "^3.3.0",
-    "@vue/cli-service": "^3.3.0",
-    "babel-eslint": "^10.0.1",
-    "copy-webpack-plugin": "^4.6.0",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "pug": "^2.0.3",
-    "pug-plain-loader": "^1.0.0",
-    "tachyons": "^4.11.1",
-    "vue-cli-plugin-pug": "^1.0.7",
-    "vue-template-compiler": "^2.5.21"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "map-template",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build; ./post-build.sh",
+        "lint": "vue-cli-service lint"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+    "dependencies": {
+        "@mapbox/mapbox-gl-geocoder": "^5.1.2",
+        "axios": "^1.13.2",
+        "cheap-ruler": "^4.0.0",
+        "d3-dsv": "^3.0.1",
+        "d3-fetch": "^3.0.1",
+        "geojson-bounds": "^1.0.4",
+        "mapbox-gl": "^3.17.0",
+        "mapbox-gl-utils": "0.50.1",
+        "vue": "^3.5.26"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^5.0.9",
+        "@vue/cli-service": "^5.0.9",
+        "copy-webpack-plugin": "^13.0.1",
+        "pug": "^3.0.3",
+        "pug-plain-loader": "^1.1.0",
+        "tachyons": "^4.12.0",
+        "vue-cli-plugin-pug": "^2.0.0",
+        "vue-template-compiler": "^2.7.16"
+    },
+    "oldeslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "rules": {},
+        "parserOptions": {
+            "parser": "babel-eslint"
+        }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ]
 }

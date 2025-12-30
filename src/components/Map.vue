@@ -29,7 +29,7 @@ export default {
     }),
     async mounted() {
         mapboxgl.accessToken =
-            'pk.eyJ1Ijoic3RldmFnZSIsImEiOiJGcW03aExzIn0.QUkUmTGIO3gGt83HiRIjQw';
+            'pk.eyJ1Ijoic3RldmFnZSIsImEiOiJjbWpyeWVwOGI0ajU2M2hwczVrdTExYmRqIn0.0EucCvUlczA1q4JGJvV2NA';
         const map = new mapboxgl.Map({
             container: 'map',
             center: [145, -37.8],
@@ -41,8 +41,7 @@ export default {
             mapboxgl,
             accessToken: mapboxgl.accessToken,
             countries: 'au',
-            types:
-                'region,postcode,district,place,locality,neighborhood,address',
+            types: 'region,postcode,district,place,locality,neighborhood,address',
         });
         document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
@@ -69,11 +68,11 @@ export default {
         //         'icon-image': 'pin',
         //     },
         // });
-
-        map.U.loadImage('marker', 'marker-outline2.png');
-        map.U.loadImage('marker-highlight', 'marker-magenta.png');
+        const urlBase = window.location.origin + process.env.BASE_URL;
+        map.U.loadImage('marker', `${urlBase}marker-outline2.png`);
+        map.U.loadImage('marker-highlight', `${urlBase}marker-magenta.png`);
         window.map = map;
-        window.Map = this;
+        // window.Map = this;
         map.U.onLoad(() => this.initMap(map));
         map.on('mousedown', () => {
             if (document.getElementById('map').clientWidth < 150) {
@@ -106,26 +105,33 @@ export default {
             const d3 = require('d3-fetch');
             const csvUrl =
                 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSEXu2wQN2zDyNMc8YTu7YhjERf24r1A9a2CS2uuaEwgAWfkMT99pNaDrh0QuYcgi_aGdtJU0YNRaBF/pub?output=csv';
-            const sites = toPins(
-                await d3.csv('https://cors-anywhere.herokuapp.com/' + csvUrl)
-            );
+            const sites = toPins(await d3.csv(csvUrl));
             map.U.addGeoJSON('sites', sites);
             console.log(sites);
             map.U.addCircle('sites-circles', 'sites', {
                 circleColor: 'black',
                 circleRadius: {
-                    stops: [[10, 3], [12, 5]],
+                    stops: [
+                        [10, 3],
+                        [12, 5],
+                    ],
                 },
             });
 
             map.U.addSymbol('sites-pins', 'sites', {
                 iconImage: 'marker',
                 iconSize: {
-                    stops: [[9, 0.25], [11, 0.5]],
+                    stops: [
+                        [9, 0.25],
+                        [11, 0.5],
+                    ],
                 },
                 iconOffset: [0, -30],
                 textField: {
-                    stops: [[12.5, ''], [13, '{Name}']],
+                    stops: [
+                        [12.5, ''],
+                        [13, '{Name}'],
+                    ],
                 },
                 textOffset: [0, 1],
                 textOptional: true,
